@@ -14,9 +14,8 @@ public class Tiempo extends ConversionLogica {
             "Horas->Horas", 1.0
     );
 
-    // Método para convertir unidades basado en las unidades de entrada y salida
     public String convertirUnidades(double valor, String unidadEntrada, String unidadSalida) {
-        // Crear la clave para buscar el factor en el mapa
+        //  Crear la clave para buscar el factor en el mapa
         String conversionKey = unidadEntrada + "->" + unidadSalida;
         double factor = conversionFactors.getOrDefault(conversionKey, 1.0);
         
