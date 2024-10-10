@@ -15,11 +15,11 @@ public class Pantalla extends JFrame {
                 "Segundos", 
                 "Minutos", 
                 "Horas", 
-                "Día", 
+                "Dia", 
                 "Semana", 
                 "Mes", 
                 "Año", 
-                "Década", 
+                "Decada", 
                 "Siglo"
             },
             "Volumen", new String[]{
