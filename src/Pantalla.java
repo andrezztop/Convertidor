@@ -225,25 +225,33 @@ public class Pantalla extends JFrame {
         configuradores.get(categoriaSeleccionada).run();
         convertir(inputField, inputUnitBox, outputField, outputUnitBox);
     }
-
+    
 private void convertir(JTextField sourceField, JComboBox<String> sourceUnitBox, 
-                           JTextField targetField, JComboBox<String> targetUnitBox) {
-        updatingFields = true;
-        try {
-            String inputText = sourceField.getText();
-            double inputValue = parseDouble(inputText);
-            String unidadEntrada = (String) sourceUnitBox.getSelectedItem();
-            String unidadSalida = (String) targetUnitBox.getSelectedItem();
+                       JTextField targetField, JComboBox<String> targetUnitBox) {
+    updatingFields = true;
+    try {
+        String inputText = sourceField.getText();
+        double inputValue = parseDouble(inputText);
+        String unidadEntrada = (String) sourceUnitBox.getSelectedItem();
+        String unidadSalida = (String) targetUnitBox.getSelectedItem();
 
-            Convertidor convertidor = convertidores.get(categoryBox.getSelectedItem());
-            String resultado = convertidor.convertir(inputValue, unidadEntrada, unidadSalida);
-            targetField.setText(resultado);
-        } catch (NumberFormatException e) {
-        } finally {
-            updatingFields = false;
-        }
+        Convertidor convertidor = convertidores.get(categoryBox.getSelectedItem());
+        String resultado = convertidor.convertir(inputValue, unidadEntrada, unidadSalida);
+        targetField.setText(resultado);
+        
+        // Obtiene la fórmula y actualiza la etiqueta
+        String formulaTexto = convertidor instanceof Tiempo 
+            ? ((Tiempo) convertidor).obtenerFormula(unidadEntrada, unidadSalida) 
+            : ((Volumen) convertidor).obtenerFormula(unidadEntrada, unidadSalida);
+        
+        formulaLabel.setText("Fórmula: " + formulaTexto);
+        
+    } catch (NumberFormatException e) {
+        // Puedes manejar la excepción si lo deseas
+    } finally {
+        updatingFields = false;
     }
-
+}
     private double parseDouble(String value) {
         return value == null || value.isEmpty() ? 0.0 :
                tryParse(value.toLowerCase().replaceAll("e$|e\\+$|e-$", "e0"));
