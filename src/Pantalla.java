@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
 import java.util.Map;
 
 public class Pantalla extends JFrame {
@@ -101,10 +100,8 @@ public class Pantalla extends JFrame {
             gbc.gridy = 0;
             gbc.gridheight = 2;
             conversionPanel.add(equalsLabel, gbc);
-
             // Campo de salida
             outputField = createStyledTextField();
-            outputField.setEditable(false);
             gbc.gridx = 2;
             gbc.gridy = 0;
             gbc.gridheight = 1;
@@ -242,7 +239,6 @@ private void convertir(JTextField sourceField, JComboBox<String> sourceUnitBox,
             String resultado = convertidor.convertir(inputValue, unidadEntrada, unidadSalida);
             targetField.setText(resultado);
         } catch (NumberFormatException e) {
-            // If parsing fails, don't update the target field
         } finally {
             updatingFields = false;
         }
